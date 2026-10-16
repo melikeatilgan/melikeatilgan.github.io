@@ -1,0 +1,146 @@
+name: Veriyi güncelle ve yayınla
+
+on:
+  schedule:
+    - cron: "17 2 * * *"   # her gün 05:17 (TSİ)
+  workflow_dispatch:
+    inputs:
+      tam:
+        description: "Veriyi baştan üret (tarama dahil, yaklaşık 2 saat)"
+        type: boolean
+        default: true
+  push:
+    branches: [main]
+
+permissions:
+  contents: write   # pin önbelleği (kaynak/easyeda.jsonl) depoya yazılır
+  pages: write
+  id-token: write
+  actions: read     # hızlı yol: son başarılı yayının paketini indirir
+
+concurrency:
+  group: yayin
+  cancel-in-progress: false
+
+jobs:
+  guncelle:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 300
+    environment:
+      name: github-pages
+      url: ${{ steps.yayin.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # push'ta hangi dosyaların değiştiğine bakmak için
+
+      # Yalnız sayfalar değiştiyse veri yeniden üretilmez: son yayının verisi yeni sayfalarla yayınlanır.
+      - name: Yol seç
+        id: yol
+        env:
+          OLAY: ${{ github.event_name }}
+          ONCE: ${{ github.event.before }}
+          TAM: ${{ inputs.tam }}
+        run: |
+          yol=tam
+          if [ "$OLAY" = push ] && git cat-file -e "$ONCE^{commit}" 2>/dev/null; then
+            git diff --name-only "$ONCE" "$GITHUB_SHA"
+            if ! git diff --name-only "$ONCE" "$GITHUB_SHA" \
+                | grep -qvE '^(site/|tests/|\.github/|README\.md$|LICENSE$|\.gitignore$|muadil/pin_ornekleri\.py$)'; then
+              yol=hizli
+            fi
+          fi
+          if [ "$OLAY" = workflow_dispatch ] && [ "$TAM" = false ]; then yol=hizli; fi
+          echo "yol=$yol" >> "$GITHUB_OUTPUT"
+          echo "Seçilen yol: $yol"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Bağımlılıklar
+        run: pip install -r requirements.txt
+
+      - name: Testler (geçmezse yayın yok)
+        run: python -m pytest -q
+
+      - name: Son yayının verisini al (hızlı yol)
+        id: eski
+        if: steps.yol.outputs.yol == 'hizli'
+        continue-on-error: true   # alınamazsa aşağıdaki tam üretime düşer
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          kimlik=$(gh run list --workflow guncelle.yml --branch main --status success --limit 1 --json databaseId -q '.[0].databaseId')
+          test -n "$kimlik"
+          gh run download "$kimlik" -n github-pages -D "$RUNNER_TEMP/eski"
+          mkdir -p "$RUNNER_TEMP/site"
+          tar -xf "$RUNNER_TEMP/eski/artifact.tar" -C "$RUNNER_TEMP/site"
+          test -s "$RUNNER_TEMP/site/muadil/veri/meta.json"
+          rm -rf _site && cp -r site _site
+          rm -rf _site/muadil/veri && cp -r "$RUNNER_TEMP/site/muadil/veri" _site/muadil/veri
+          echo "Veri $kimlik numaralı çalışmanın yayınından alındı."
+
+      - name: JLCPCB kataloğunu tara
+        if: steps.yol.outputs.yol == 'tam' || steps.eski.outcome == 'failure'
+        run: python -u -m muadil.jlc tara
+
+      - name: Katalog veritabanını kur ve denetle
+        if: steps.yol.outputs.yol == 'tam' || steps.eski.outcome == 'failure'
+        run: |
+          python -u -m muadil.katalog
+          python - <<'PY'
+          import sqlite3
+          n = sqlite3.connect("veri/katalog.db").execute("SELECT count(*) FROM parca").fetchone()[0]
+          print("parça:", n)
+          assert n > 500_000, "Tarama eksik kaldı; eski site yerinde kalsın."
+          PY
+
+      - name: Pin önbelleğini büyüt (EasyEDA, en çok 50 dakika)
+        if: steps.yol.outputs.yol == 'tam' || steps.eski.outcome == 'failure'
+        run: |
+          python - <<'PY'
+          import sqlite3
+          db = sqlite3.connect("veri/katalog.db")
+          kodlar = [r[0] for r in db.execute(
+              "SELECT lcsc FROM parca WHERE aile IN ('regulator','opamp','transistor','diyot','zamanlayici','lojik') "
+              "ORDER BY stok DESC")]
+          open("veri/easyeda_sira.txt", "w").write("\n".join(kodlar))
+          PY
+          python -u -m muadil.easyeda tara veri/easyeda_sira.txt 3000 || true
+
+      - name: Pin önbelleğini kaydet
+        if: steps.yol.outputs.yol == 'tam' || steps.eski.outcome == 'failure'
+        run: |
+          # Bu arada depoya başka commit gelmiş olabilir: en son hali al, önbellekleri birleştir, sonra gönder.
+          # Depo tek commit tutuluyor: önbellek yeni commit olarak eklenmez, son commit'e katılır. Zorla gönderim,
+          # yalnız depo okunduğundan beri değişmediyse geçer (araya giren bir güncelleme ezilmez).
+          cp kaynak/easyeda.jsonl "$RUNNER_TEMP/yeni.jsonl"
+          git config user.name "Melike Atılgan"
+          git config user.email "96149122+melikeatilgan@users.noreply.github.com"
+          for deneme in 1 2 3; do
+            git fetch -q --depth=1 origin main
+            git checkout -q -f -B main origin/main
+            once=$(git rev-parse HEAD)
+            python -m muadil.easyeda birlestir "$RUNNER_TEMP/yeni.jsonl"
+            git diff --quiet -- kaynak/easyeda.jsonl && break
+            git add kaynak/easyeda.jsonl
+            git commit -q --amend --no-edit
+            git push -q --force-with-lease="main:$once" origin main && break
+            sleep 5
+          done
+
+      - name: Site verisini üret
+        if: steps.yol.outputs.yol == 'tam' || steps.eski.outcome == 'failure'
+        run: |
+          python -u -m muadil.yayinla site/muadil/veri
+          rm -rf _site && cp -r site _site
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+          retention-days: 7   # hızlı yol bu paketi kullanır
+
+      - id: yayin
+        uses: actions/deploy-pages@v4
