@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nasıl çalışır? | Muadil</title>
+<meta name="description" content="Muadil aracının veri kaynakları, pin karşılaştırma yöntemi, muadil kuralları ve sınırları.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../stil.css">
+<style>
+  main section { margin: 34px 0; }
+  main ol li, main ul li { margin-bottom: 6px; }
+  .kurallar h3 { margin-top: 22px; }
+  .kurallar td:last-child { white-space: nowrap; }
+</style>
+</head>
+<body>
+<header class="serit">
+  <div class="kap">
+    <a class="ad" href="../"><svg class="logo-im" viewBox="0 0 48 48" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 39V7l13 14 13-14"/><path d="M33 7l10 32M33 7 23 39M26.1 29h13.8"/></g><g fill="currentColor"><circle cx="7" cy="39" r="4.4"/><circle cx="23" cy="39" r="4.4"/><circle cx="43" cy="39" r="4.4"/></g><g fill="var(--kart)"><circle cx="7" cy="39" r="1.6"/><circle cx="23" cy="39" r="1.6"/><circle cx="43" cy="39" r="1.6"/></g></svg>Melike Atılgan</a>
+    <nav aria-label="Site">
+      <a href="../#projeler">Projeler</a>
+      <a href="./">Muadil aracı</a>
+      <a href="bom.html">BOM raporu</a>
+      <a href="nasil.html" aria-current="page">Nasıl çalışır?</a>
+    </nav>
+  </div>
+</header>
+
+<main class="kap dar">
+  <section>
+    <h1>Nasıl çalışır?</h1>
+    <p>Bir kartta kullanılan parça bulunamadığında, üretimden kalktığında ya da pahalandığında yerine takılabilecek
+      bir parça aranır. Bu iş için üç soruya cevap gerekir: aynı kılıfa sığıyor mu, pinleri aynı işi mi yapıyor,
+      elektriksel değerleri yetiyor mu? Araç bu üç soruyu her aday için ayrı ayrı cevaplar ve cevabın dayanağını gösterir.</p>
+  </section>
+
+  <section>
+    <h2>1. Veri</h2>
+    <ul>
+      <li><strong>Parça kataloğu:</strong> JLCPCB'nin stoklu parça listesi her gün taranır (yaklaşık 725 bin parça).
+        Parça numarası, üretici, kılıf, özellikler, fiyat basamakları, stok ve datasheet bağlantısı buradan gelir.</li>
+      <li><strong>Özellikler:</strong> "1.1V@(800mA)" gibi metinler, açık kaynak jlcparts projesinin normalleştiricisiyle
+        birimli sayılara çevrilir. Böylece 0,8 A ile 1 A karşılaştırılabilir.</li>
+      <li><strong>Pin dizilimi:</strong> iki bağımsız kaynaktan gelir. Birincisi KiCad'in resmî sembol kütüphanesi;
+        kütüphane ekibinin denetiminden geçer. İkincisi LCSC'nin EasyEDA sembolleridir; her LCSC parçası için ayrı
+        çizilmiştir.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>2. Aday seçimi</h2>
+    <p>Adaylar aynı alt kategoriden ve aynı temel değerlerden seçilir. Örneğin 3,3 V sabit çıkışlı pozitif bir LDO için
+      yalnızca 3,3 V sabit çıkışlı pozitif LDO'lar aday olur. Sonra her aday aşağıdaki kurallardan geçer.
+      <strong>Zorunlu</strong> bir kural çiğnenirse aday elenir. <strong>Tercih</strong> kuralı çiğnenirse aday
+      kalır ama fark yazılır.</p>
+    <p>Yön her zaman eski parçayı koruyacak şekildedir: gerilim ve akım değerleri eşit ya da yüksek, tolerans ve
+      kaçak akım eşit ya da düşük, çalışma sıcaklığı aralığı eşit ya da geniş olmalıdır. MOSFET'lerde RDS(on) farklı
+      Vgs değerlerinde ölçülmüşse sayılar karşılaştırılmaz; datasheet eğrisine bakılması istenir. Aynı ilke ileri gerilim
+      (farklı akım), düşüm gerilimi, PSRR ve kapı yükü için de geçerli. Eski parçanın bir değeri bilinmiyorsa adayın onu
+      karşıladığı da söylenmez. Dielektrik kodları çözülür: X7R'nin yerine C0G olur, X5R olmaz (85 °C'de biter), X7S de olmaz
+      (kapasite değişimi daha büyük). Lojik ve 555'te besleme aralığının alt sınırı da karşılaştırılır (2 V'ta çalışan bir
+      kapının yerine 4,5 V'tan başlayan bir parça konmaz).</p>
+    <p>Zorunlu bir değer iki parçada da katalogda yoksa kural atlanmaz: doğrulanamadığı için sonuç en fazla "kontrol
+      gerekli" olur. Lojikte giriş tipi (Schmitt ya da standart) ve çıkış yapısı (push-pull ya da open-drain) da
+      zorunludur: 74HC14'ün yerine 74HC04, 74HC04'ün yerine 74HC05 önerilmez. Op-amp'lerde tek ve çift besleme
+      aralığı toplam gerilime çevrilip iki ucu da karşılaştırılır (±15 V'luk bir devreye ±13 V'ta biten parça konmaz).
+      Transistörlerde katalog hFE ve fT için tek sayı veriyor ve bunun en az mı en çok mu olduğunu yazmıyor
+      (MMBT3904'te en az 300 MHz, MMBT5551'de en çok 300 MHz, ikisi de "300MHz"); bu yüzden bu iki değer
+      datasheet'ten kontrol edilmek üzere işaretlenir. Op-amp boşta akımı da katalogda kanal başına mı paket toplamı mı
+      belli olmadığı için yalnız fark olarak yazılır.</p>
+    <div class="kurallar" id="kurallar"><p class="soluk">Kurallar yükleniyor...</p></div>
+  </section>
+
+  <section>
+    <h2>3. Pin karşılaştırması</h2>
+    <p>Kaynaklar aynı pine farklı adlar verir: VIN, VI, IN, INPUT; ya da "IN A+", "1IN+", "+IN1". Her ad, parçanın
+      ailesine göre bir işleve çevrilir, sonra iki parçanın aynı numaralı pinleri karşılaştırılır.</p>
+    <ul>
+      <li><strong>Kanallar:</strong> çift op-amp ya da dörtlü kapı gibi parçalarda kanal adları kaynaklar arasında
+        farklı olabilir. Araç kanal numaralarının kendisine değil, bir kanalın pinlerinin karşı parçada da aynı kanalda
+        toplanıp toplanmadığına bakar.</li>
+      <li><strong>Tab:</strong> SOT-223 gibi kılıflarda gövde tabı, aynı parçada hangi pine bağlı yazılmışsa o işlevi taşır.</li>
+      <li><strong>NC pinler:</strong> karttaki boş bir pine yeni parçada bir işlev düşüyorsa (ör. EN) aday uyumsuz sayılır.
+        Zararsız durumlar (boşta kalan BYP ya da PG) not olarak yazılır.</li>
+      <li><strong>EN ve SHDN:</strong> etkinleştirme pininin kutbu önemlidir. Kutup açıkça ters ise (EN ile etkin-düşük EN)
+        uyumsuz sayılır. Kaynakta üst çizgi yoksa SHDN'in kutbu belli olmadığından sonuç "belirsiz" olur.</li>
+      <li><strong>Yalnız numara olan adlar:</strong> bazı sembollerde pin adı "1", "2" diye yazılmıştır; işlev bilgisi
+        olmadığı için bu pinler "belirsiz" sayılır, eşleşmiş sayılmaz.</li>
+      <li><strong>Kanıt düzeyi:</strong> bir parçanın KiCad ve EasyEDA tabloları uyuşuyorsa "iki kaynakla doğrulandı" yazılır.
+        Yalnız EasyEDA varsa "parçaya özel" (LCSC her parça için ayrı sembol çizer). Yalnız KiCad varsa sembolün datasheet
+        adresine bakılır: parçanın üreticisine aitse "KiCad, aynı üretici", değilse "yalnız ada göre". Kaynaklar çelişiyorsa
+        ya da tablo yalnız ada göreyse aday hiçbir zaman "doğrudan takılır" sınıfına girmez.</li>
+    </ul>
+    <p>Aynı kılıfın aynı pin dizilimi demek olmadığına bir örnek: KiCad kütüphanesinde SOT-23 kılıflı LDO'lar için dört ayrı
+      dizilim var (XC6206: GND-OUT-IN, AP7381: IN-OUT-GND, APE8865: OUT-GND-IN, LM3480: OUT-IN-GND). TO-220 kılıflı
+      7805 ile 7905'in pin sırası da farklıdır. Çift op-amp'lerin neredeyse hepsi aynı dizilimi kullanır, ama
+      Analog Devices OP249'un SOIC kılıfı kullanmaz (1 +INA, 2 V-, 6 V+, 7 OUTA, 8 -INA); KiCad ve EasyEDA ikisi de
+      bunu gösteriyor, araç da TL072'nin yerine "uyumsuz" diyor.</p>
+    <p><strong>Aynı numara, farklı dizilim:</strong> Torex'in XC6206P332MR'ında SOT-23 dizilimi 1 VSS, 2 VOUT, 3 VIN. UMW'nin aynı
+      numaralı parçasının kendi datasheet'inde (Mart 2025) 1 GND, 2 Input, 3 Output yazıyor: giriş ile çıkış yer değiştirmiş.
+      KiCad sembolü Torex'in datasheet'ine dayandığı için UMW parçasında LCSC sembolüyle çelişiyor ve araç bunu "kaynaklar
+      çelişiyor" diye gösteriyor. Bu yüzden başka üreticinin aynı adlı parçasında KiCad tablosu tek başına yeterli sayılmıyor.</p>
+  </section>
+
+  <section>
+    <h2>4. Sınırlar</h2>
+    <ul>
+      <li>Pin tablosu olmayan parçalar için "doğrudan takılır" denmez; sonuç "kontrol gerekli" olur. Pin önbelleği
+        her gün büyür.</li>
+      <li>Katalog JLCPCB'nin stoklu parçalarıdır. Stokta olmayan ya da JLCPCB'nin taşımadığı parçalar listede yer almaz.</li>
+      <li>Kılıf uyumu kılıf adıyla karşılaştırılır. Aynı adlı kılıflarda ped ölçüleri üreticiye göre biraz değişebilir.</li>
+      <li>Yaşam durumu (üretimden kalkma), otomotiv ve askerî kalifikasyon bilgisi bu veride yok.</li>
+      <li>Fiyat ve stok günlük taramadan gelir; güncel değer için parçanın JLCPCB ya da LCSC bağlantısı açılmalıdır.</li>
+    </ul>
+    <p>Sonuçlar karar destek içindir. Seri üretimden önce seçilen parça datasheet ile doğrulanmalıdır.</p>
+  </section>
+
+  <section>
+    <h2>Kaynak kod</h2>
+    <p>Tarama, normalleştirme, pin karşılaştırması ve kurallar Python ile yazıldı; testleriyle birlikte
+      <a href="https://github.com/melikeatilgan/melikeatilgan.github.io">GitHub'da</a>. Altın testler arasında
+      7805/7905 ve SOT-23 LDO tuzakları, klon parçalar ve iki kaynaklı pin doğrulaması var; testler geçmezse site
+      güncellenmez.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="kap">Pin verisi: KiCad sembol kütüphanesi (CC-BY-SA 4.0) ve LCSC/EasyEDA. Özellik normalleştirme: jlcparts (MIT).</div>
+</footer>
+<script type="module">
+  const AILE = { regulator: "LDO / doğrusal regülatör", transistor: "Transistör (MOSFET, BJT)", diyot: "Diyot (doğrultucu, Schottky, zener, TVS)",
+    opamp: "Op-amp / karşılaştırıcı", zamanlayici: "555 zamanlayıcı", lojik: "Lojik kapılar", direnc: "Chip direnç", mlcc: "Seramik kondansatör (MLCC)" };
+  const TUR = { esit: "eşit", en_az: "eşit ya da yüksek", en_cok: "eşit ya da düşük", kapsar: "aralığı kapsamalı",
+    icerir: "aynısı ya da fazlası", besleme: "besleme aralığını kapsamalı", belirsiz: "datasheet'ten (katalog değeri belirsiz)",
+    tolerans: "eşit ya da dar", dielektrik: "eşit ya da daha kararlı", vgs_rds: "aynı Vgs'de eşit ya da düşük" };
+  const h = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  try {
+    const k = await (await fetch("veri/kurallar.json")).json();
+    document.getElementById("kurallar").innerHTML = Object.entries(k).map(([a, ks]) => `<h3>${h(AILE[a] || a)}</h3>
+      <div class="tablo-kap"><table><thead><tr><th>Değer</th><th>Adayda olması gereken</th><th>Tür</th></tr></thead><tbody>
+      ${ks.map((r) => `<tr><td>${h(r.etiket)}</td><td>${h(TUR[r.tur] || r.tur)}</td><td>${r.zorunlu ? "Zorunlu" : "Tercih"}</td></tr>`).join("")}
+      </tbody></table></div>`).join("");
+  } catch {
+    document.getElementById("kurallar").innerHTML = '<p class="soluk">Kurallar tablosu okunamadı.</p>';
+  }
+</script>
+<script data-goatcounter="https://tkucukgenc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

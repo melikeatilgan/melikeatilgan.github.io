@@ -1,0 +1,7 @@
+.venv/
+veri/
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+site/muadil/veri/
