@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Melike Atılgan | Elektrik-Elektronik Mühendisi</title>
+<meta name="description" content="Melike Atılgan, Elektrik-Elektronik Mühendisi. Projeler: komponent muadil bulucu, motor arıza analizi ve izleme kartları, stok takip sistemi, ESP32 ile alışkanlık öğrenen akıllı ev.">
+<meta name="theme-color" content="#0f1217">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ana.css">
+<link rel="preload" as="image" href="varlik/ana-kart.webp" fetchpriority="high">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Melike Atılgan | Elektrik-Elektronik Mühendisi">
+<meta property="og:description" content="Komponent muadil bulucu, motor arıza analizi ve izleme kartları, stok takip sistemi, ESP32 ile alışkanlık öğrenen akıllı ev.">
+<meta property="og:url" content="https://melikeatilgan.github.io/">
+<meta property="og:image" content="https://melikeatilgan.github.io/varlik/muadil-onizleme.png">
+<meta name="twitter:card" content="summary_large_image">
+<script src="ana.js" defer></script>
+</head>
+<body>
+<a class="atla" href="#projeler">İçeriğe geç</a>
+<header class="kap ust">
+  <a class="logo" href="./" aria-label="Melike Atılgan, ana sayfa">
+    <svg viewBox="0 0 48 48" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 39V7l13 14 13-14"/><path d="M33 7l10 32M33 7 23 39M26.1 29h13.8"/></g>
+      <g fill="currentColor"><circle cx="7" cy="39" r="4.4"/><circle cx="23" cy="39" r="4.4"/><circle cx="43" cy="39" r="4.4"/></g>
+      <g fill="var(--zemin)"><circle cx="7" cy="39" r="1.6"/><circle cx="23" cy="39" r="1.6"/><circle cx="43" cy="39" r="1.6"/></g>
+    </svg>
+  </a>
+  <nav aria-label="Sayfa içi"><a href="#projeler">Projeler</a><a href="#hakkimda">Hakkımda</a><a href="#iletisim">İletişim</a></nav>
+</header>
+
+<main>
+  <section class="kap giris" aria-labelledby="ad">
+    <div class="giris-ust">
+      <div>
+        <p class="etiket">Elektrik-Elektronik Mühendisi · Ankara</p>
+        <h1 id="ad">Melike<br>Atılgan</h1>
+        <p class="ozet">Erciyes Üniversitesi Elektrik-Elektronik Mühendisliği'nden Ocak 2026'da mezun oldum. Devre kartı tasarımından gömülü sistemlere,
+          endüstriyel bakımdan web araçlarına kadar farklı alanlarda projeler geliştiriyorum.</p>
+        <ul class="baglar">
+          <li><a href="#projeler">Projeler ↓</a></li>
+          <li><a href="https://github.com/melikeatilgan" rel="me">GitHub ↗</a></li>
+          <li><a href="https://www.linkedin.com/in/melikeatilgan" rel="me">LinkedIn ↗</a></li>
+          <li><a href="mailto:melikeatlgn216@gmail.com">E-posta</a></li>
+        </ul>
+      </div>
+      <figure class="sahne">
+        <div class="sekmeler" role="tablist" aria-label="Kartlar"><button type="button" role="tab" id="sekme-ana" aria-controls="panel-ana" aria-selected="true" data-alt="Ana kart · KiCad · 4 katman · Rev C · Üretime hazır tasarım (DRC ve ERC onaylı)">Ana kart</button><button type="button" role="tab" id="sekme-sensor" aria-controls="panel-sensor" aria-selected="false" tabindex="-1" data-alt="Sensör başlığı · motorun yatak gövdesine takılır · KiCad · 4 katman · Rev C · Üretime hazır tasarım (DRC ve ERC onaylı)">Sensör başlığı</button><button type="button" role="tab" id="sekme-telemetri" aria-controls="panel-telemetri" aria-selected="false" tabindex="-1" data-alt="Telemetri geçidi · Modbus RTU → MQTT · KiCad · 4 katman · Rev C · Üretime hazır tasarım (DRC ve ERC onaylı)">Telemetri geçidi</button></div>
+        <div class="kart-kap" id="panel-ana" role="tabpanel" aria-labelledby="sekme-ana">
+          <img src="varlik/ana-kart.webp" fetchpriority="high" width="1400" height="1068" alt="Motor durum izleme kartının üstten görünümü: ekran, butonlar, mikrodenetleyici, RS-485 bağlantıları, yalıtım bariyeri ve röle">
+          <button class="nokta" type="button" style="--x:46.8%;--y:48.7%" data-not="ana-1" aria-label="Not 1: mikrodenetleyici" aria-pressed="false">1</button>
+          <button class="nokta" type="button" style="--x:61.4%;--y:22.5%" data-not="ana-2" aria-label="Not 2: RS-485 hatları" aria-pressed="false">2</button>
+          <button class="nokta" type="button" style="--x:16.4%;--y:87.5%" data-not="ana-3" aria-label="Not 3: akım ölçümü" aria-pressed="false">3</button>
+          <button class="nokta" type="button" style="--x:46.4%;--y:74%" data-not="ana-4" aria-label="Not 4: güç katı" aria-pressed="false">4</button>
+          <button class="nokta" type="button" style="--x:68.9%;--y:74%" data-not="ana-5" aria-label="Not 5: PTC izleme" aria-pressed="false">5</button>
+          <button class="nokta" type="button" style="--x:79.9%;--y:28.1%" data-not="ana-6" aria-label="Not 6: yalıtım bariyeri" aria-pressed="false">6</button>
+          <button class="nokta" type="button" style="--x:92.1%;--y:79.6%" data-not="ana-7" aria-label="Not 7: röle ve şebeke" aria-pressed="false">7</button>
+          <button class="nokta" type="button" style="--x:17.9%;--y:23.4%" data-not="ana-8" aria-label="Not 8: ekran ve butonlar" aria-pressed="false">8</button>
+        </div>
+        <div class="kart-kap" id="panel-sensor" role="tabpanel" aria-labelledby="sekme-sensor" hidden>
+          <img src="varlik/sensor-basligi.webp" width="1400" height="1068" loading="lazy" alt="Sensör başlığının üstten görünümü: titreşim ivmeölçeri, iki PT100 ön ucu, mikrodenetleyici ve izole RS-485">
+          <button class="nokta" type="button" style="--x:56.7%;--y:49.4%" data-not="sensor-1" aria-label="Not 1: titreşim ivmeölçeri" aria-pressed="false">1</button>
+          <button class="nokta" type="button" style="--x:70.6%;--y:27.7%" data-not="sensor-2" aria-label="Not 2: PT100 ön uçları" aria-pressed="false">2</button>
+          <button class="nokta" type="button" style="--x:30.3%;--y:82.9%" data-not="sensor-3" aria-label="Not 3: mikrodenetleyici" aria-pressed="false">3</button>
+          <button class="nokta" type="button" style="--x:33.7%;--y:42.1%" data-not="sensor-4" aria-label="Not 4: izole RS-485" aria-pressed="false">4</button>
+          <button class="nokta" type="button" style="--x:43.3%;--y:25.6%" data-not="sensor-5" aria-label="Not 5: hat koruması" aria-pressed="false">5</button>
+          <button class="nokta" type="button" style="--x:18.1%;--y:22.3%" data-not="sensor-6" aria-label="Not 6: kablo bağlantısı" aria-pressed="false">6</button>
+          <button class="nokta" type="button" style="--x:9.4%;--y:20.9%" data-not="sensor-7" aria-label="Not 7: giriş koruması" aria-pressed="false">7</button>
+          <button class="nokta" type="button" style="--x:38.8%;--y:64%" data-not="sensor-8" aria-label="Not 8: güç katı" aria-pressed="false">8</button>
+        </div>
+        <div class="kart-kap" id="panel-telemetri" role="tabpanel" aria-labelledby="sekme-telemetri" hidden>
+          <img src="varlik/telemetri-gecidi.webp" width="1400" height="1068" loading="lazy" alt="Telemetri geçidinin üstten görünümü: ESP32-S3 modülü, izole RS-485, güç katı ve programlama başlığı">
+          <button class="nokta" type="button" style="--x:74.9%;--y:33.7%" data-not="telemetri-1" aria-label="Not 1: ESP32-S3 modülü" aria-pressed="false">1</button>
+          <button class="nokta" type="button" style="--x:35.8%;--y:43.2%" data-not="telemetri-2" aria-label="Not 2: izole RS-485" aria-pressed="false">2</button>
+          <button class="nokta" type="button" style="--x:50%;--y:9.8%" data-not="telemetri-3" aria-label="Not 3: neden ayrı kart" aria-pressed="false">3</button>
+          <button class="nokta" type="button" style="--x:19.8%;--y:22.8%" data-not="telemetri-4" aria-label="Not 4: kablo bağlantısı" aria-pressed="false">4</button>
+          <button class="nokta" type="button" style="--x:24.6%;--y:71.1%" data-not="telemetri-5" aria-label="Not 5: güç katı" aria-pressed="false">5</button>
+          <button class="nokta" type="button" style="--x:45.7%;--y:27.3%" data-not="telemetri-6" aria-label="Not 6: hat koruması" aria-pressed="false">6</button>
+          <button class="nokta" type="button" style="--x:66.3%;--y:62.1%" data-not="telemetri-7" aria-label="Not 7: durum LED'leri" aria-pressed="false">7</button>
+          <button class="nokta" type="button" style="--x:80%;--y:64.5%" data-not="telemetri-8" aria-label="Not 8: programlama başlığı" aria-pressed="false">8</button>
+        </div>
+        <figcaption id="kart-alt">Ana kart · KiCad · 4 katman · Rev C · Üretime hazır tasarım (DRC ve ERC onaylı)</figcaption>
+      </figure>
+    </div>
+    <ol class="notlar" id="notlar-ana" aria-label="Ana kart üzerindeki notlar">
+      <li id="not-ana-1"><span class="no">1</span><span><strong>STM32G474</strong> mikrodenetleyici.</span></li>
+      <li id="not-ana-2"><span class="no">2</span><span><strong>İki izole RS-485 hattı:</strong> biri sensör başlığına, biri Modbus'a.</span></li>
+      <li id="not-ana-3"><span class="no">3</span><span><strong>Üç akım trafosu (CT) girişi.</strong> Yalıtımı kart değil, sensörün kendisi sağlar.</span></li>
+      <li id="not-ana-4"><span class="no">4</span><span><strong>Güç katı:</strong> LM5164 ile 24 V DC'den 3,3 V.</span></li>
+      <li id="not-ana-5"><span class="no">5</span><span><strong>PTC izleme:</strong> motor sargısındaki termistör takviyeli yalıtımla okunur.</span></li>
+      <li id="not-ana-6"><span class="no">6</span><span><strong>Takviyeli yalıtım bariyeri:</strong> hava aralığı 5,5 mm, yüzeysel kaçak 8,0 mm.</span></li>
+      <li id="not-ana-7"><span class="no">7</span><span><strong>Şebeke yalnızca röle kontağında</strong> (250 V AC); kartın geri kalanı SELV.</span></li>
+      <li id="not-ana-8"><span class="no">8</span><span><strong>Yerel ekran ve üç buton.</strong></span></li>
+    </ol>
+    <ol class="notlar" id="notlar-sensor" aria-label="Sensör başlığı üzerindeki notlar" hidden>
+      <li id="not-sensor-1"><span class="no">1</span><span><strong>IIS3DWB titreşim ivmeölçeri:</strong> 26,7 kHz örnekleme, ±16 g. Genel amaçlı ivmeölçerlerin bandı yatak frekanslarına yetmiyor.</span></li>
+      <li id="not-sensor-2"><span class="no">2</span><span><strong>İki MAX31865 ile 4 telli PT100:</strong> yatağın iki ucu (DE, NDE). 4 tel, 10 m kabloda 2 telliye göre yaklaşık 1,8 °C'lik hatayı önler.</span></li>
+      <li id="not-sensor-3"><span class="no">3</span><span><strong>STM32G071:</strong> ölçümleri sensörün yanında işleyen yerel mikrodenetleyici.</span></li>
+      <li id="not-sensor-4"><span class="no">4</span><span><strong>İzole RS-485 (ADM2582E):</strong> motor gövdesiyle pano toprağı arasındaki potansiyel farkını ayırır.</span></li>
+      <li id="not-sensor-5"><span class="no">5</span><span><strong>SM712:</strong> RS-485 hatlarını darbeye karşı korur.</span></li>
+      <li id="not-sensor-6"><span class="no">6</span><span><strong>Ana karta tek kablo:</strong> 24 V, 0 V, A, B ve izole toprak.</span></li>
+      <li id="not-sensor-7"><span class="no">7</span><span><strong>Giriş koruması:</strong> SMBJ33CA darbe bastırıcı ve SS110 ters bağlantı diyotu.</span></li>
+      <li id="not-sensor-8"><span class="no">8</span><span><strong>LM5164:</strong> 24 V'tan 3,3 V üreten anahtarlamalı regülatör.</span></li>
+    </ol>
+    <ol class="notlar" id="notlar-telemetri" aria-label="Telemetri geçidi üzerindeki notlar" hidden>
+      <li id="not-telemetri-1"><span class="no">1</span><span><strong>ESP32-S3-WROOM-1U:</strong> harici antenli modül. Kapalı metal pano Faraday kafesi gibi davrandığı için anten pano dışına çıkar.</span></li>
+      <li id="not-telemetri-2"><span class="no">2</span><span><strong>İzole RS-485 (ADM2582E):</strong> ana karttaki Modbus RTU verisini okur.</span></li>
+      <li id="not-telemetri-3"><span class="no">3</span><span><strong>Radyo neden ayrı kartta:</strong> ESP32'nin verici akım darbeleri akım ölçümünü bozmasın, ölçüm kartı telsiz mevzuatına (EN 300 328) girmesin diye.</span></li>
+      <li id="not-telemetri-4"><span class="no">4</span><span><strong>Panodan tek kablo:</strong> 24 V ve Modbus hattı. Geçit dursa da ana kartın koruması çalışır; Modbus yalnız okunur, ağdan motor kesilemez.</span></li>
+      <li id="not-telemetri-5"><span class="no">5</span><span><strong>3,3 V doğrudan LM5164'ten:</strong> ESP32'nin yaklaşık 355 mA'lik verici tepesine ilk tasarımdaki LDO yetmiyordu.</span></li>
+      <li id="not-telemetri-6"><span class="no">6</span><span><strong>SM712:</strong> RS-485 hattının darbe koruması.</span></li>
+      <li id="not-telemetri-7"><span class="no">7</span><span><strong>Durum LED'leri:</strong> güç ve ağ bağlantısı.</span></li>
+      <li id="not-telemetri-8"><span class="no">8</span><span><strong>UART / önyükleme başlığı:</strong> yazılım yükleme ve hata ayıklama.</span></li>
+    </ol>
+  </section>
+
+  <section class="kap bolum" id="projeler" aria-labelledby="projeler-b">
+    <div class="bolum-bas"><h2 id="projeler-b">Projeler</h2><span class="mono">04</span></div>
+
+    <article class="proje ikili">
+      <div>
+        <p class="mono ust-bilgi">01 · 2026 · PYTHON · SQLITE · JAVASCRIPT</p>
+        <h3>Komponent muadil bulucu</h3>
+        <p>Bir parça numarası girildiğinde JLCPCB'de stoklu yaklaşık 725 bin parça arasından aynı kategoridekileri kılıf,
+          pin dizilimi ve elektriksel değerleriyle karşılaştırıyor. Her öneriyi kanıtıyla gösteriyor.</p>
+        <p>Pin verisini KiCad ve LCSC/EasyEDA sembollerinden alıp birbirine karşı denetliyor; iki kaynak uyuşmuyorsa ya da
+          pin verisi yoksa "doğrudan takılır" demiyor. Yandaki kutu nedenini gösteriyor: aynı kılıfta bacak sırası değişebiliyor.</p>
+        <ul class="baglar">
+          <li><a href="muadil/">Aracı aç →</a></li>
+          <li><a href="muadil/bom.html">BOM raporu</a></li>
+          <li><a href="https://github.com/melikeatilgan/melikeatilgan.github.io">Kaynak kod ↗</a></li>
+        </ul>
+      </div>
+      <div class="pin" id="pin" aria-live="polite">
+        <div class="pin-bas"><span class="mono">AYNI KILIF, FARKLI BACAK</span></div>
+        <p class="pin-kilif">SOT-23</p>
+        <p class="pin-tur">Lineer regülatör (LDO)</p>
+        <table>
+          <thead><tr><th>Pin</th><th>XC6206</th><th>AP7381</th><th>LM3480</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>GND</td><td>VI</td><td>VO</td></tr>
+            <tr><td>2</td><td>VO</td><td>VO</td><td>VI</td></tr>
+            <tr><td>3</td><td>VI</td><td>GND</td><td>GND</td></tr>
+          </tbody>
+        </table>
+        <p class="pin-alt">Kaynak: KiCad 10 sembol kütüphanesi.</p>
+      </div>
+      <dialog class="pin-buyuk" id="pin-buyuk" aria-label="Büyütülmüş pin çizimi"><div class="pin-buyuk-ic"></div><button type="button" class="pin-kapat">Kapat</button></dialog>
+    </article>
+
+    <article class="proje">
+      <div>
+        <p class="mono ust-bilgi">02 · 2026 · ARIZA AĞACI ANALİZİ · KICAD</p>
+        <h3>Motor arıza analizi ve izleme kartları</h3>
+      </div>
+      <ol class="adimlar">
+        <li><span class="mono">ADIM 1</span><strong>Arıza ağacı</strong>15 kW'lık bir pompa motorunun arıza yollarını arıza ağaçlarıyla çıkardım.</li>
+        <li><span class="mono">ADIM 2</span><strong>Saha belgeleri</strong>Aylık bakım formunu ve arıza anında kullanılacak cep kartını hazırladım.</li>
+        <li><span class="mono">ADIM 3</span><strong>İzleme kartları</strong>Analizin gösterdiği izleme boşluğu için KiCad'de üç kart tasarladım; en üstteki seçiciden üçüne de bakabilirsiniz.</li>
+      </ol>
+      <div class="arac" id="motor">
+        <div class="arac-ust motor-ust">
+          <p class="mono arac-bas">İZLEME KARTININ KARAR MANTIĞI</p>
+          <div class="senaryolar" id="m-senaryo" role="group" aria-label="Arıza senaryoları">
+            <span class="mono soluk-kucuk">Senaryo:</span>
+            <button type="button" data-s="rulman">Rulman arızası</button>
+            <button type="button" data-s="faz">Faz kaybı</button>
+            <button type="button" data-s="yuk">Aşırı yük</button>
+            <button type="button" data-s="rotor">Rotor çubuğu</button>
+            <button type="button" data-s="nem">Nemli sargı</button>
+            <button type="button" data-s="normal">Baştan başlat</button>
+          </div>
+        </div>
+        <div class="karar" id="m-karar" aria-live="polite">
+          <div class="karar-sol">
+            <p class="role"><span class="role-lamba" id="m-role-lamba"></span><span id="m-role">Röle çekili · çalışma izni var</span><span class="karar-saat" id="m-saat">zaman 10 kat hızlı</span></p>
+            <strong id="m-karar-baslik"></strong>
+            <p class="karar-aciklama" id="m-karar-aciklama"></p>
+          </div>
+          <div class="karar-sag">
+            <ul id="m-karar-neden" tabindex="0" aria-label="Karar nedenleri"></ul>
+            <p class="baslatma" id="m-baslatma"></p>
+            <button type="button" class="sifirla" id="m-sifirla">Sıfırla</button>
+          </div>
+        </div>
+        <div class="kanallar">
+          <div class="kanal" id="k-akim" role="group" aria-labelledby="k-akim-ad">
+            <p class="kanal-bas"><span id="k-akim-ad">Faz akımları</span><span class="hap" id="m-akim-h"></span></p>
+            <p class="kanal-kaynak">Ana kart · 3 akım trafosu</p>
+            <div class="satir"><label for="m-l1">L1 <b id="m-l1-y"></b> A</label><input type="range" id="m-l1" min="0" max="50" step="0.1" value="26.2"></div>
+            <div class="satir"><label for="m-l2">L2 <b id="m-l2-y"></b> A</label><input type="range" id="m-l2" min="0" max="50" step="0.1" value="26.6"></div>
+            <div class="satir"><label for="m-l3">L3 <b id="m-l3-y"></b> A</label><input type="range" id="m-l3" min="0" max="50" step="0.1" value="25.9"></div>
+            <p class="kanal-esik" id="m-akim-ozet"></p>
+          </div>
+          <div class="kanal" id="k-titresim" role="group" aria-labelledby="k-titresim-ad">
+            <p class="kanal-bas"><span id="k-titresim-ad">Titreşim hızı</span><span class="hap" id="m-titresim-h"></span></p>
+            <p class="kanal-kaynak">Sensör başlığı · IIS3DWB ivmeölçer</p>
+            <label class="kanal-deger" for="m-titresim"><b id="m-titresim-y"></b> mm/s RMS</label>
+            <input type="range" id="m-titresim" min="0" max="10" step="0.1" value="1.6">
+            <div class="olcek" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span></div>
+            <p class="kanal-esik">2,8 üstü uyarı (C) · 4,5 üstü kesme (D)</p>
+          </div>
+          <div class="kanal" id="k-yatak" role="group" aria-labelledby="k-yatak-ad">
+            <p class="kanal-bas"><span id="k-yatak-ad">Yatak sıcaklığı</span><span class="hap" id="m-yatak-h"></span></p>
+            <p class="kanal-kaynak">Sensör başlığı · 2 × PT100 · tahrik ve karşı taraf</p>
+            <div class="satir"><label for="m-de">DE <b id="m-de-y"></b> °C</label><input type="range" id="m-de" min="20" max="120" step="1" value="62"></div>
+            <div class="satir"><label for="m-nde">NDE <b id="m-nde-y"></b> °C</label><input type="range" id="m-nde" min="20" max="120" step="1" value="58"></div>
+            <p class="kanal-esik">90 °C uyarı · 100 °C kesme</p>
+          </div>
+          <div class="kanal" id="k-ptc" role="group" aria-labelledby="k-ptc-ad">
+            <p class="kanal-bas"><span id="k-ptc-ad">Sargı PTC'si</span><span class="hap" id="m-ptc-h"></span></p>
+            <p class="kanal-kaynak">Ana kart · takviyeli yalıtımlı ön uç</p>
+            <div class="secim" id="m-ptc" role="group" aria-label="PTC durumu">
+              <button type="button" data-p="normal" aria-pressed="true">Normal</button><button type="button" data-p="atti" aria-pressed="false">Attı</button><button type="button" data-p="kopru" aria-pressed="false">Köprülenmiş</button><button type="button" data-p="kopuk" aria-pressed="false">Kablo kopuk</button>
+            </div>
+            <p class="kanal-esik">Attı: anında kesme · köprü ya da kopuk: uyarı</p>
+          </div>
+          <div class="kanal" id="k-yanband" role="group" aria-labelledby="k-yanband-ad">
+            <p class="kanal-bas"><span id="k-yanband-ad">Rotor çubuğu yan bandı</span><span class="hap" id="m-yanband-h"></span></p>
+            <p class="kanal-kaynak">Ana kart · akım spektrumu</p>
+            <label class="kanal-deger" for="m-yanband"><b id="m-yanband-y"></b> dB, ana tepeye göre</label>
+            <input type="range" id="m-yanband" min="-70" max="-30" step="1" value="-60">
+            <p class="kanal-esik">−45 dB üstü uyarı · kesmez, yavaş gelişir</p>
+          </div>
+          <div class="kanal" id="k-yalitim" role="group" aria-labelledby="k-yalitim-ad">
+            <p class="kanal-bas"><span id="k-yalitim-ad">Yalıtım direnci</span><span class="hap" id="m-yalitim-h"></span></p>
+            <p class="kanal-kaynak">Aylık bakım formu · 40 °C'ye düzeltilmiş</p>
+            <label class="kanal-deger" for="m-yalitim"><b id="m-yalitim-y"></b> MΩ</label>
+            <input type="range" id="m-yalitim" min="0" max="200" step="1" value="120">
+            <p class="kanal-esik">5 MΩ altı çalıştırma · 20 MΩ altı düşük</p>
+          </div>
+        </div>
+        <p class="arac-alt">Eşikler kartın tasarım belgesindeki karar tablosundan ve projedeki cep kartından · WEG W22 15 kW, In 28,3 A · titreşim ISO 20816-3 grup 2 (15 kW üstü; motor sınırda)</p>
+      </div>
+      <p class="mono"><a href="https://github.com/melikeatilgan/asenkron-motor-bakim">Projeyi GitHub'da incele ↗</a></p>
+    </article>
+
+    <article class="proje ikili ters">
+      <figure class="gorsel cerceve">
+        <img src="varlik/stok-takip.webp" width="1200" height="821" loading="lazy" alt="Stok takip sisteminin depo durumu ekranı: ürün başına kalan miktar ve son sayım tarihi">
+        <figcaption>Depo durumu ekranı</figcaption>
+      </figure>
+      <div>
+        <p class="mono ust-bilgi">03 · 2025 - 2026 · REACT · NODE.JS · SQLITE · DOCKER</p>
+        <h3>Stok ve malzeme takip sistemi</h3>
+        <p>Şubenin stok takibini web uygulamasına taşıdım. Personel her gün sayım,
+          gelen, giden ve zayi miktarlarını giriyor; uygulama ürün başına günlük kullanımı (sayım + gelen − giden − zayi −
+          ertesi günün sayımı) hesaplıyor, aylık sayımla birlikte Excel raporu çıkarıyor. Açılış-kapanış kontrol
+          listeleri fotoğraflı, arıza bildirimleri ve mola kayıtları da aynı sistemde.</p>
+        <p>Ön yüz React ve Vite, arka uç Node.js ve Express üzerinde bir REST API; veriler SQLite'ta. Yönetici ve personel
+          rolleri JWT ile ayrılıyor, şifreler bcrypt ile saklanıyor. Docker ile şube bilgisayarına tek komutla kuruluyor,
+          veritabanı ve fotoğraflar tek dosyada yedekleniyor. Şube müdürü olarak çalıştığım işletmede pilot olarak
+          kullandım.</p>
+      </div>
+      <div class="arac genis" id="depo">
+        <div class="depo-ust">
+          <p class="mono arac-bas">DEPO · TÜKETİM TAHMİNİ VE OTOMATİK SİPARİŞ</p>
+          <label class="depo-kontrol"><span id="depo-gun-y">1. gün</span><input type="range" id="depo-gun" min="1" max="30" value="1"></label>
+          <button type="button" class="oynat" id="depo-oynat">▶ Oynat</button>
+        </div>
+        <p class="depo-ozet" id="depo-ozet" aria-live="polite"></p>
+        <div class="depo-govde">
+          <div class="depo-kartlar" id="depo-kartlar"></div>
+          <div class="depo-ayrinti" id="depo-ayrinti">
+            <div class="ayrinti-bas">
+              <div><p class="ayrinti-ad" id="d-ad"></p><p class="ayrinti-tahmin" id="d-tahmin"></p></div>
+              <p class="ayrinti-oneri" id="d-oneri"></p>
+            </div>
+            <div class="ayrinti-grafik" id="d-grafik"></div>
+            <div class="ayrinti-ayar">
+              <label for="d-ort">Ortalama tüketim <b><output id="d-ort-y"></output> <span class="d-birim"></span>/gün</b><input type="range" id="d-ort" min="1" max="200"></label>
+              <label for="d-hs">Hafta sonu artışı <b>%<output id="d-hs-y"></output></b><input type="range" id="d-hs" min="0" max="100" step="5"></label>
+              <label for="d-dalga">Günlük dalgalanma <b>±%<output id="d-dalga-y"></output></b><input type="range" id="d-dalga" min="0" max="60" step="5"></label>
+              <label for="d-ted">Tedarik süresi <b><output id="d-ted-y"></output> gün</b><input type="range" id="d-ted" min="1" max="7"></label>
+              <label for="d-emn">Emniyet payı <b><output id="d-emn-y"></output> gün</b><input type="range" id="d-emn" min="0" max="4"></label>
+              <label for="d-kap">Sipariş kapsamı <b><output id="d-kap-y"></output> günlük</b><input type="range" id="d-kap" min="2" max="10"></label>
+            </div>
+            <p class="arac-alt" id="d-yontem"></p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="proje">
+      <div>
+        <p class="mono ust-bilgi">04 · 2024 - 2025 · ESP32 · BLYNK · MAKİNE ÖĞRENMESİ</p>
+        <h3>Alışkanlık öğrenen akıllı ev</h3>
+        <p>ESP32 tabanlı bir giriş-çıkış ve ortam izleme sistemi geliştirdim. Sistem kapının açılıp kapandığını, kaç
+          kişinin girip çıktığını ve içeride kaç kişi olduğunu izliyor; giren kişiyi telefonu ve akıllı saatiyle
+          haberleşerek doğruluyor.</p>
+        <p>Üç kişilik evde her kişinin odasında kendi ışığı, ortak alanlarda iki ışık var. Sistem ışıkların, kahve
+          makinesinin, sıcak suyun ve havalandırmanın kullanımını izleyip kişilerin alışkanlıklarını makine öğrenmesiyle
+          öğreniyor: biri evden çıkınca odasının ışığını kapatıyor, eve yaklaşan birinin kahvesini hazırlamaya başlıyor,
+          bir başkası için duştan önce suyu ısıtıyor, ev boşken odaları havalandırıyor. Sıcaklık, nem ve cihaz durumları
+          Blynk ile uzaktan izlenip kontrol ediliyor.</p>
+      </div>
+      <div class="arac" id="ev">
+        <p class="mono arac-bas">ÜÇ KİŞİLİK EVİN BİR GÜNÜ</p>
+        <div class="ev-izgara">
+          <div class="ev-sol">
+            <p class="kayit-ust"><span class="kayit-saat" id="ev-saat">06:00</span><span class="kayit-not" id="ev-not" aria-live="polite"></span><button type="button" class="oynat" id="ev-oynat">▶ Oynat</button></p>
+            <div class="ev-plan" id="ev-plan"></div>
+            <div class="ev-bilgi">
+              <ul class="ev-kisiler" id="ev-kisiler"></ul>
+              <p class="gizli" id="ev-durum"></p>
+              <p class="ev-ortam" id="ev-ortam"></p>
+            </div>
+          </div>
+          <div class="ev-sag">
+            <div class="kayit-kap" id="ev-kayit"></div>
+            <div class="ev-olaylar" id="ev-olaylar" role="group" aria-label="Olaylar"></div>
+            <label class="arac-etiket" for="ev-saat-girdi">Kaydın saati: kaydırın ya da grafiğin üstünde sürükleyin</label>
+            <input type="range" id="ev-saat-girdi" min="360" max="1440" step="1" value="360">
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="kap bolum" id="hakkimda" aria-labelledby="hakkimda-b">
+    <div class="bolum-bas"><h2 id="hakkimda-b">Hakkımda</h2></div>
+    <div class="hakkimda">
+      <div>
+        <p>Erciyes Üniversitesi Elektrik-Elektronik Mühendisliği bölümünden Ocak 2026'da mezun oldum. Hasçelik Kablo ve
+          Hasçelik Fiber'in bakım-onarım bölümünde, SENTA Elektrik'te ise AG/OG saha ekibinde staj yaptım.</p>
+        <p>Kebo Döner'de şube müdürü olarak ekip, vardiya ve stok yönetimini üstlendim. Üniversitede WOCA Team'in
+          elektronik biriminde Shell Eco-Marathon ve TEKNOFEST'e katıldım.</p>
+      </div>
+      <dl class="bilgi">
+        <dt>Eğitim</dt><dd>Erciyes Üniversitesi, Elektrik-Elektronik Mühendisliği (2020 - 2026)</dd>
+        <dt>Stajlar</dt><dd>Hasçelik Kablo ve Hasçelik Fiber (2025), SENTA Elektrik (2023)</dd>
+        <dt>Takım</dt><dd>WOCA Team, elektronik birim (2021 - 2022)</dd>
+        <dt>Diller</dt><dd>Türkçe, İngilizce (orta)</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="kap bolum" id="iletisim" aria-labelledby="iletisim-b">
+    <div class="bolum-bas"><h2 id="iletisim-b">İletişim</h2></div>
+    <p>Projelerle ilgili soru ve önerileriniz için yazabilirsiniz.</p>
+    <a class="eposta" href="mailto:melikeatlgn216@gmail.com">melikeatlgn216@gmail.com</a>
+    <ul class="baglar">
+      <li><a href="https://www.linkedin.com/in/melikeatilgan" rel="me">LinkedIn ↗</a></li>
+      <li><a href="https://github.com/melikeatilgan" rel="me">GitHub ↗</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer class="kap">
+  <div class="antet">
+    <div><span>BAŞLIK</span>Melike Atılgan · Portföy</div>
+    <div><span>KONUM</span>Ankara</div>
+    <div><span>REV</span>2026-10</div>
+    <div><span>SAYFA</span>1 / 1</div>
+  </div>
+</footer>
+<script data-goatcounter="https://tkucukgenc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
