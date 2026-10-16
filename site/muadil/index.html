@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muadil | Komponent muadil bulucu</title>
+<meta name="description" content="Elektronik komponentler için muadil bulucu: kılıf, pin dizilimi ve elektriksel değerlerle kanıtlı karşılaştırma.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../stil.css">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Muadil: komponent muadil bulucu">
+<meta property="og:description" content="Parça numarasını yazın; aynı kılıfa ve pin dizilimine sahip, değerleri yeten muadilleri kanıtıyla görün.">
+<meta property="og:url" content="https://melikeatilgan.github.io/muadil/">
+<meta property="og:image" content="https://melikeatilgan.github.io/varlik/muadil-onizleme.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  .baslik { padding: 36px 0 8px; }
+  .baslik p { max-width: 760px; }
+  form.arama { display: flex; gap: 8px; margin: 18px 0 10px; }
+  form.arama input {
+    flex: 1; min-width: 0; font: inherit; font-size: 17px; padding: 11px 14px; border-radius: 8px;
+    border: 1px solid var(--cizgi); background: var(--kart); color: var(--yazi);
+  }
+  .ornekler { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 14px; }
+  .ornekler button {
+    font: inherit; font-size: 13.5px; padding: 3px 10px; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--cizgi); background: var(--kart); color: var(--yazi);
+  }
+  .ornekler button:hover { border-color: var(--vurgu); }
+  #durum { min-height: 24px; margin: 14px 0; color: var(--soluk); }
+  .parca-ust { display: flex; gap: 18px; align-items: flex-start; flex-wrap: wrap; }
+  .parca-ust img { width: 96px; height: 96px; object-fit: contain; background: #fff; border-radius: 8px; border: 1px solid var(--cizgi); }
+  .parca-ust .bilgi { flex: 1; min-width: 240px; }
+  .parca-ust h2 { margin-bottom: 2px; }
+  .satir-bilgi { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14.5px; color: var(--soluk); margin: 6px 0 10px; }
+  .iki { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  @media (max-width: 760px) { .iki { grid-template-columns: 1fr; } }
+  .sinif-baslik { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin: 28px 0 4px; }
+  .sinif-baslik h3 { margin: 0; }
+  .aday { border: 1px solid var(--cizgi); border-radius: 8px; background: var(--kart); margin: 8px 0; }
+  .aday summary { list-style: none; cursor: pointer; padding: 10px 12px; display: grid; gap: 4px 12px;
+    grid-template-columns: minmax(150px, 1.4fr) minmax(110px, 1fr) 90px 90px 110px auto; align-items: center; }
+  .aday summary::-webkit-details-marker { display: none; }
+  .aday summary:hover { background: var(--zemin); border-radius: 8px; }
+  .aday .mpn { font-weight: 650; font-family: var(--mono); font-size: 14.5px; word-break: break-all; }
+  .aday .k { font-size: 13.5px; color: var(--soluk); }
+  .aday .sag { text-align: right; font-variant-numeric: tabular-nums; font-size: 14px; }
+  .aday .kanit { padding: 4px 14px 14px; border-top: 1px dashed var(--cizgi); }
+  .aday .kanit ul { margin: 6px 0; padding-left: 18px; font-size: 14px; }
+  @media (max-width: 760px) {
+    .aday summary { grid-template-columns: 1fr 1fr; }
+    .aday .sag { text-align: left; }
+  }
+  td.tamam { color: var(--iyi); } td.uyari { color: var(--uyari); } td.hata { color: var(--kotu); font-weight: 600; } td.belirsiz { color: var(--soluk); }
+  .uyari-kutu { border-left: 4px solid var(--uyari); background: var(--uyari-zemin); padding: 10px 14px; border-radius: 6px; font-size: 14.5px; }
+  .liste-tablo td:first-child { font-family: var(--mono); }
+  .liste-tablo tr { cursor: pointer; }
+  .liste-tablo tr:hover td { background: var(--zemin); }
+  .aciklamalar { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); font-size: 14px; }
+</style>
+</head>
+<body>
+<header class="serit">
+  <div class="kap">
+    <a class="ad" href="../"><svg class="logo-im" viewBox="0 0 48 48" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 39V7l13 14 13-14"/><path d="M33 7l10 32M33 7 23 39M26.1 29h13.8"/></g><g fill="currentColor"><circle cx="7" cy="39" r="4.4"/><circle cx="23" cy="39" r="4.4"/><circle cx="43" cy="39" r="4.4"/></g><g fill="var(--kart)"><circle cx="7" cy="39" r="1.6"/><circle cx="23" cy="39" r="1.6"/><circle cx="43" cy="39" r="1.6"/></g></svg>Melike Atılgan</a>
+    <nav aria-label="Site">
+      <a href="../#projeler">Projeler</a>
+      <a href="./" aria-current="page">Muadil aracı</a>
+      <a href="bom.html">BOM raporu</a>
+      <a href="nasil.html">Nasıl çalışır?</a>
+    </nav>
+  </div>
+</header>
+
+<main class="kap">
+  <section class="baslik">
+    <h1>Muadil</h1>
+    <p>Bir komponentin yerine takılabilecek parçaları bulur. Adayları kılıf, pin dizilimi ve elektriksel değerlerle
+      karşılaştırır, her sonucu kanıtıyla gösterir.</p>
+    <form class="arama" role="search" id="form">
+      <label class="gizli" for="sorgu">Parça numarası ya da LCSC kodu</label>
+      <input id="sorgu" name="q" autocomplete="off" spellcheck="false" placeholder="Parça numarası ya da LCSC kodu, ör. AMS1117-3.3">
+      <button class="dugme" type="submit">Ara</button>
+    </form>
+    <div class="ornekler" aria-label="Örnek aramalar">
+      <span class="soluk">Örnekler:</span>
+      <button type="button" data-q="AMS1117-3.3">AMS1117-3.3</button>
+      <button type="button" data-q="AO3400A">AO3400A</button>
+      <button type="button" data-q="LM358DR">LM358DR</button>
+      <button type="button" data-q="NE555DR">NE555DR</button>
+      <button type="button" data-q="C25804">C25804</button>
+      <button type="button" data-q="SS34">SS34</button>
+    </div>
+    <p class="soluk kucuk" id="meta" style="margin-top:12px"></p>
+  </section>
+
+  <div id="durum" role="status" aria-live="polite"></div>
+  <div id="sonuc"></div>
+
+  <section class="bolum" aria-labelledby="siniflar-b">
+    <h2 id="siniflar-b">Sonuç sınıfları</h2>
+    <div class="aciklamalar">
+      <div><span class="etiket iyi">Doğrudan takılır</span><p>Kılıf aynı, iki parçanın pin tablosu var ve pinler işlev olarak eşleşiyor, değerler eşit ya da daha iyi.</p></div>
+      <div><span class="etiket uyari">Takılır, farkları var</span><p>Kılıf ve pinler uyumlu, zorunlu değerler sağlanıyor; bazı değerler daha zayıf ya da doğrulanamadı. Hepsi yazılı.</p></div>
+      <div><span class="etiket">Kontrol gerekli</span><p>Kılıf aynı, zorunlu değerler çiğnenmiyor ama pin verisi ya da bazı değerler eksik.</p></div>
+      <div><span class="etiket">Farklı kılıf</span><p>Elektriksel değerler uygun; takmak için kart değişikliği gerekir.</p></div>
+      <div><span class="etiket kotu">Uygun değil</span><p>Pin dizilimi uyuşmuyor ya da zorunlu bir değer yetmiyor. Nedeni yazılı.</p></div>
+    </div>
+    <p class="uyari-kutu" style="margin-top:18px">Bu araç bir karar destek aracıdır. Seri üretimden önce seçilen parçayı
+      üreticinin datasheet'i ile doğrulayın. Fiyat ve stok, sayfanın üstünde tarihi yazan taramadan gelir; güncel
+      değer için parçanın JLCPCB ya da LCSC bağlantısını açın.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="kap">
+    Veri: JLCPCB parça kataloğu (stoklu parçalar). Pin verisi: KiCad sembol kütüphanesi (CC-BY-SA 4.0) ve LCSC/EasyEDA
+    sembolleri. Özellik normalleştirme: jlcparts (MIT). · <a href="https://github.com/melikeatilgan/melikeatilgan.github.io">Kaynak kod</a>
+  </div>
+</footer>
+<script src="app.js" type="module"></script>
+<script data-goatcounter="https://tkucukgenc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

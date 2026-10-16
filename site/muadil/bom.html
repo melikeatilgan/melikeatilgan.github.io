@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BOM risk raporu | Muadil</title>
+<meta name="description" content="Parça listesindeki tedarik risklerini çıkarır: katalogda olmayan, stoğu düşük ve doğrulanmış muadili olmayan parçalar.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../stil.css">
+<style>
+  .baslik { padding: 36px 0 8px; }
+  textarea {
+    width: 100%; min-height: 180px; font: 14px/1.5 var(--mono); padding: 10px 12px; border-radius: 8px;
+    border: 1px solid var(--cizgi); background: var(--kart); color: var(--yazi); resize: vertical;
+  }
+  .eylemler { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 0; align-items: center; }
+  .ozet { display: flex; gap: 8px; flex-wrap: wrap; margin: 18px 0 10px; }
+  #rapor td { vertical-align: middle; }
+  #rapor .etiket { margin: 1px 2px; }
+  .ince { font-size: 13px; color: var(--soluk); }
+</style>
+</head>
+<body>
+<header class="serit">
+  <div class="kap">
+    <a class="ad" href="../"><svg class="logo-im" viewBox="0 0 48 48" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 39V7l13 14 13-14"/><path d="M33 7l10 32M33 7 23 39M26.1 29h13.8"/></g><g fill="currentColor"><circle cx="7" cy="39" r="4.4"/><circle cx="23" cy="39" r="4.4"/><circle cx="43" cy="39" r="4.4"/></g><g fill="var(--kart)"><circle cx="7" cy="39" r="1.6"/><circle cx="23" cy="39" r="1.6"/><circle cx="43" cy="39" r="1.6"/></g></svg>Melike Atılgan</a>
+    <nav aria-label="Site">
+      <a href="../#projeler">Projeler</a>
+      <a href="./">Muadil aracı</a>
+      <a href="bom.html" aria-current="page">BOM raporu</a>
+      <a href="nasil.html">Nasıl çalışır?</a>
+    </nav>
+  </div>
+</header>
+
+<main class="kap">
+  <section class="baslik">
+    <h1>BOM risk raporu</h1>
+    <p>Bir kartın parça listesini yapıştırın ya da CSV dosyası seçin. Her satır için parça katalogda var mı, stoğu
+      yeterli mi, JLCPCB'de ek montaj ücreti var mı ve doğrulanmış bir muadili var mı, tek tabloda gösterilir.</p>
+    <label for="girdi" class="kucuk soluk">Her satıra bir parça numarası ya da LCSC kodu; ya da başlık satırı olan CSV
+      (JLCPCB BOM biçimi: Comment, Designator, Footprint, LCSC). Adet sütunu varsa stok kontrolünde kullanılır.</label>
+    <textarea id="girdi" spellcheck="false" placeholder="AMS1117-3.3&#10;C25804&#10;LM358DR"></textarea>
+    <div class="eylemler">
+      <button class="dugme" id="calistir" type="button">Raporu çıkar</button>
+      <label class="dugme ikincil" for="dosya">CSV dosyası seç</label>
+      <input id="dosya" type="file" accept=".csv,.txt,.tsv" class="gizli">
+      <button class="dugme ikincil" id="ornek" type="button">Örnek liste</button>
+      <span class="ince">En çok 300 satır. Dosya tarayıcıdan çıkmaz.</span>
+    </div>
+  </section>
+
+  <div id="durum" role="status" aria-live="polite" class="soluk" style="min-height:24px;margin:14px 0"></div>
+  <div id="ozet" class="ozet"></div>
+  <div class="tablo-kap"><table id="rapor"></table></div>
+
+  <section class="bolum">
+    <h2>Riskler ne anlama geliyor?</h2>
+    <ul>
+      <li><span class="etiket kotu">Katalogda yok</span> Parça JLCPCB'nin stoklu kataloğunda bulunamadı: ya stok bitti ya hiç taşınmıyor.</li>
+      <li><span class="etiket kotu">Okunamadı</span> Veri dosyası indirilemedi; parça katalogda olabilir. Sayfayı yenileyip tekrar deneyin.</li>
+      <li><span class="etiket uyari">Stok düşük</span> Stok 1.000 adetin ya da listedeki adedin 10 katının altında.</li>
+      <li><span class="etiket uyari">Doğrulanmış muadil yok</span> Aynı kılıf ve pin dizilimiyle takılabilecek, kanıtlı bir aday bulunamadı: tek kaynak riski.</li>
+      <li><span class="etiket kotu">Pin kaynakları çelişiyor</span> KiCad ile LCSC/EasyEDA bu parça için farklı pin dizilimi veriyor; datasheet'ten doğrulanmadan dizilime güvenilmemeli.</li>
+      <li><span class="etiket">Genişletilmiş parça</span> JLCPCB montajında parça başına ek kurulum ücreti çıkar.</li>
+      <li><span class="etiket">Muadil kuralı yok</span> Bu kategori için kural tanımlı değil; muadil elle aranmalı.
+        Bu satırlar "sorunsuz" sayılmaz.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="kap">Veri: JLCPCB parça kataloğu (günlük tarama). Sonuçlar karar destek içindir.</div>
+</footer>
+<script src="bom.js" type="module"></script>
+<script data-goatcounter="https://tkucukgenc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
