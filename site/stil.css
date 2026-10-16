@@ -1,0 +1,90 @@
+:root {
+  --zemin: #f7f7f5;
+  --kart: #ffffff;
+  --yazi: #1d2125;
+  --soluk: #5c6670;
+  --cizgi: #e2e4e6;
+  --vurgu: #0b6e75;
+  --vurgu-acik: #e3f1f2;
+  --iyi: #1f7a3d;
+  --iyi-zemin: #e5f4ea;
+  --uyari: #8a5a00;
+  --uyari-zemin: #fbf1dc;
+  --kotu: #a3271f;
+  --kotu-zemin: #fbe7e5;
+  --notr-zemin: #eef0f2;
+  --golge: 0 1px 2px rgba(16, 24, 32, .06), 0 2px 8px rgba(16, 24, 32, .04);
+  --yaricap: 10px;
+  --mono: ui-monospace, "Cascadia Mono", "Consolas", "SFMono-Regular", monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --zemin: #121518; --kart: #1a1e22; --yazi: #e6e8ea; --soluk: #9aa4ad; --cizgi: #2b3137;
+    --vurgu: #4fb3ba; --vurgu-acik: #15302f; --iyi: #6cc98c; --iyi-zemin: #16301f;
+    --uyari: #e2b45c; --uyari-zemin: #33280f; --kotu: #f08a80; --kotu-zemin: #3a1a17; --notr-zemin: #23282d;
+    --golge: none; color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--zemin); color: var(--yazi);
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+a { color: var(--vurgu); text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--vurgu); outline-offset: 2px; border-radius: 4px; }
+.kap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+.dar { max-width: 760px; }
+
+/* Üst şerit */
+.serit { border-bottom: 1px solid var(--cizgi); background: var(--kart); }
+.serit .kap { display: flex; align-items: center; gap: 24px; min-height: 56px; flex-wrap: wrap; }
+.serit .ad { font-weight: 700; text-decoration: none; color: var(--yazi); letter-spacing: .2px; display: inline-flex; align-items: center; gap: 10px; }
+.serit .logo-im { width: 28px; height: 28px; color: var(--vurgu); }
+.serit nav { display: flex; gap: 18px; margin-left: auto; flex-wrap: wrap; }
+.serit nav a { text-decoration: none; color: var(--soluk); font-size: 15px; }
+.serit nav a:hover, .serit nav a[aria-current] { color: var(--yazi); }
+
+h1, h2, h3 { line-height: 1.25; margin: 0 0 .5em; }
+h1 { font-size: clamp(28px, 4.2vw, 40px); letter-spacing: -.5px; }
+h2 { font-size: 22px; letter-spacing: -.2px; }
+h3 { font-size: 17px; }
+p { margin: 0 0 1em; }
+.soluk { color: var(--soluk); }
+.kucuk { font-size: 14px; }
+.mono { font-family: var(--mono); font-size: .95em; }
+
+.bolum { padding-top: 40px; padding-bottom: 40px; }
+.bolum + .bolum { border-top: 1px solid var(--cizgi); }
+.kart {
+  background: var(--kart); border: 1px solid var(--cizgi); border-radius: var(--yaricap);
+  box-shadow: var(--golge); padding: 20px;
+}
+.izgara { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+
+.etiket {
+  display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px; border-radius: 999px;
+  font-size: 12.5px; font-weight: 600; background: var(--notr-zemin); color: var(--soluk); white-space: nowrap;
+}
+.etiket.iyi { background: var(--iyi-zemin); color: var(--iyi); }
+.etiket.uyari { background: var(--uyari-zemin); color: var(--uyari); }
+.etiket.kotu { background: var(--kotu-zemin); color: var(--kotu); }
+.etiket.vurgu { background: var(--vurgu-acik); color: var(--vurgu); }
+
+.dugme {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 16px;
+  border-radius: 8px; border: 1px solid var(--vurgu); background: var(--vurgu); color: #fff;
+  font: inherit; font-weight: 600; text-decoration: none; cursor: pointer;
+}
+.dugme.ikincil { background: transparent; color: var(--vurgu); }
+.dugme:hover { filter: brightness(1.08); }
+
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--cizgi); vertical-align: top; }
+th { font-weight: 600; color: var(--soluk); font-size: 13px; }
+.tablo-kap { overflow-x: auto; }
+
+footer { border-top: 1px solid var(--cizgi); padding: 28px 0 40px; color: var(--soluk); font-size: 14px; }
+.gizli { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

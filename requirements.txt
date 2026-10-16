@@ -1,0 +1,3 @@
+# Özellik normalleştirme (MIT): sabit sürüm, güncellerken testler yeniden çalıştırılır.
+jlcparts @ git+https://github.com/yaqwsx/jlcparts@7ef2c97e359d6d192ab2c7ae1fa3f3c3e5de2bd7
+pytest==9.1.1
